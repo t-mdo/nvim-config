@@ -57,7 +57,7 @@ nmap <Leader>u :GundoToggle<CR>
 
 " fzf
 nmap <leader>p :Files<CR>
-nmap <leader>m :FZFMru<CR>
+nmap <leader>o :FZFMru --multi<CR>
 nmap <leader>b :Buffers<CR>
 nmap <leader>l :Commits<CR>
 nmap <leader>h :BCommits<CR>
@@ -97,6 +97,14 @@ Plug 'pbogut/fzf-mru.vim'
 " file tree
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'kyazdani42/nvim-web-devicons'
+
+" extras
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'chilicuil/vim-sprunge'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'sbdchd/neoformat'
 
 call plug#end()
 
