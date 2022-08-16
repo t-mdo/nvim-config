@@ -1,0 +1,293 @@
+set number
+set secure
+set hidden
+set wildmenu
+set wildmode=longest:full,full
+set wildignore=*.o,*.obj,*.bak,*.exe,*.out
+set ruler
+set showcmd
+set noerrorbells
+set modeline
+set incsearch
+set scrolloff=6
+set fillchars+=vert:/
+set mouse=a
+
+" identation
+
+set autoindent
+set expandtab
+set shiftwidth=2
+set tabstop=8
+set softtabstop=8
+set splitbelow
+set backspace=indent,eol,start
+
+set timeoutlen=1000 ttimeoutlen=0
+set nobackup
+
+set diffopt+=vertical
+
+syntax on
+filetype plugin indent on
+
+" keybindings START
+
+let mapleader=","
+
+nmap <Tab> ==
+imap <Tab> <C-v><Tab>
+
+" movements
+
+nmap <C-h> :bp<CR>
+nmap <C-l> :bn<CR>
+nmap <C-j> :bf<CR>
+nmap <C-k> :bl<CR>
+nmap <C-d> :bd<CR>
+nmap <M-k> :wincmd k<CR>
+nmap <M-j> :wincmd j<CR>
+nmap <M-h> :wincmd h<CR>
+nmap <M-l> :wincmd l<CR>
+
+" copy path
+nmap ,cs :let @*=expand("%")<CR>
+nmap ,cl :let @*=expand("%:p")<CR>
+
+" fzf
+nmap <leader>p :Files<CR>
+nmap <leader>m :FZFMru<CR>
+nmap <leader>b :Buffers<CR>
+nmap <leader>l :Commits<CR>
+nmap <leader>h :BCommits<CR>
+nnoremap <leader>sc :Ag <C-R><C-W><CR>
+
+" nertree
+nmap <leader>t :NERDTreeToggle<CR>
+nmap <leader>f :NERDTreeFind<CR>
+
+" git
+nmap <Leader>ga <Plug>(GitGutterStageHunk)
+
+" javascript tern
+nmap <Leader>jd :TernDef<CR>
+
+" history
+nmap <Leader>u :GundoToggle<CR>
+
+" keybindings END
+
+"plugins START
+
+call plug#begin('~/.config/nvim/plugged')
+
+"Theme
+Plug 'morhetz/gruvbox'
+
+" Undo
+Plug 'sjl/gundo.vim'
+
+"Git
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-rhubarb'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
+"UI
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'ryanoasis/vim-devicons'
+
+""FileTools
+Plug 'scrooloose/nerdtree'
+Plug 'kyazdani42/nvim-tree.lua'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'pbogut/fzf-mru.vim'
+
+"Autocomplete
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'github/copilot.vim'
+ "JS
+ Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
+ Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
+ Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
+ "Python
+ Plug 'zchee/deoplete-jedi'
+
+"Syntax
+ "JS
+ Plug 'pangloss/vim-javascript'
+ Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+ Plug 'maxmellon/vim-jsx-pretty'
+ Plug 'othree/yajs.vim'
+
+  " CSS
+  Plug 'hail2u/vim-css3-syntax'
+  Plug 'ap/vim-css-color'
+
+ "Python
+ Plug 'vim-scripts/indentpython.vim'
+ "Hashicorp
+ Plug 'hashivim/vim-terraform'
+ Plug 'hashivim/vim-vagrant'
+
+"Ruby
+ Plug 'vim-ruby/vim-ruby'
+ Plug 'tpope/vim-rails'
+ Plug 'AndrewRadev/splitjoin.vim'
+ "Plug 'slim-template/vim-slim'
+
+"Snippet
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'epilande/vim-react-snippets'
+Plug 'mattn/emmet-vim'
+
+"Lint
+Plug 'w0rp/ale'
+
+"NodeJS
+Plug 'moll/vim-node'
+
+"MarkDown
+Plug 'iamcco/markdown-preview.vim'
+
+"Writing
+Plug 'reedes/vim-pencil'
+
+"Tags
+Plug 'majutsushi/tagbar'
+Plug 'ramitos/jsctags'
+
+"Tests
+Plug 'vim-test/vim-test'
+
+"Other
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-surround'
+Plug 'chilicuil/vim-sprunge'
+Plug 'jiangmiao/auto-pairs'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'mklabs/split-term.vim'
+Plug 'sbdchd/neoformat'
+Plug 'skywind3000/asyncrun.vim'
+Plug 'tpope/vim-repeat'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'markonm/traces.vim'
+Plug 'yggdroot/indentline'
+
+call plug#end()
+
+"plugins END
+
+"color scheme
+let g:gruvbox_italic = 1
+let g:gruvbox_contrast_dark = 'soft'
+set background=dark
+colorscheme gruvbox
+set conceallevel=0
+
+let g:fzf_mru_relative = 1
+let g:fzf_layout = { 'down': '40%' }
+
+" AIRLINE "
+set encoding=utf8
+let g:airline_theme = 'gruvbox'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#whitespace#enabled = 0
+
+" NERDTREE "
+autocmd StdinReadPre * let s:std_in=1
+
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeIgnore = ['\.o$', '\~$']
+let g:NERDTreeCascadeOpenSingleChildDir = 1
+let g:NERDTreeMouseMode = 1
+let NERDTreeQuitOnOpen=1
+
+" NERDTREE-GIT "
+
+let g:NERDTreeGitStatusIndicatorMapCustom = {
+      \ "Modified"  : "✹",
+      \ "Staged"    : "✚",
+      \ "Untracked" : "✭",
+      \ "Renamed"   : "➜",
+      \ "Unmerged"  : "═",
+      \ "Deleted"   : "✖",
+      \ "Dirty"     : "✗",
+      \ "Clean"     : "✔︎",
+      \ "Unknown"   : "?"
+      \ }
+
+lua << EOF
+local chadtree_settings = {
+    options = {
+        close_on_open= true
+    }
+}
+vim.api.nvim_set_var("chadtree_settings", chadtree_settings)
+EOF
+
+" GITGUTTER "
+set updatetime=100
+let g:gitgutter_map_keys=0
+
+" DEOPLETE "
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_ignore_case = 1
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+call deoplete#custom#option('num_processes', 4)
+call deoplete#custom#option('sources', {
+\ '_': ['ale'],
+\})
+
+
+let g:tern#command = ["tern"]
+let g:tern#arguments = ["--persistent --no-port-file"]
+autocmd CompleteDone * pclose!
+
+" ALE "
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 0
+let g:ale_ruby_rubocop_executable = 'bundle'
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {
+      \   'javascript': ['prettier'],
+      \   'css': ['prettier'],
+      \   'ruby': ['prettier'],
+      \}
+
+" JAVASCRIPT "
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_enable_domhtmlcss = 1
+set conceallevel=1
+let g:jsx_ext_required = 0
+let g:javascript_plugin_flow = 0
+let g:vim_jsx_pretty_colorful_config = 1
+
+" ULTISNIPS "
+let g:UltiSnipsExpandTrigger = "<C-S>"
+let g:UltiSnipsJumpForwardTrigger = "<C-D>"
+let g:UltiSnipsJumpBackwardTrigger = "<C-A>"
+
+" CTAGS "
+"nmap <Leader>t :TagbarToggle<CR>
+
+" AUTO-PAIRS "
+let g:AutoPairsMultilineClose = 0
+let g:AutoPairsFlyMode = 0
+
+" PENCIL "
+let g:pencil#wrapModeDefault = 'soft'
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,md call pencil#init()
+  autocmd FileType text         call pencil#init()
+augroup END
+
+" UNDO "
+let g:gundo_prefer_python3 = 1
