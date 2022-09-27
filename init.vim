@@ -45,10 +45,10 @@ nmap <C-l> :bn<CR>
 nmap <C-j> :bf<CR>
 nmap <C-k> :bl<CR>
 nmap <C-d> :bd<CR>
-nmap <M-k> :wincmd k<CR>
-nmap <M-j> :wincmd j<CR>
-nmap <M-h> :wincmd h<CR>
-nmap <M-l> :wincmd l<CR>
+nmap ˚ :wincmd k<CR>
+nmap ∆ :wincmd j<CR>
+nmap ˙ :wincmd h<CR>
+nmap ¬ :wincmd l<CR>
 
 " copy path
 nmap ,cs :let @*=expand("%")<CR>
@@ -58,7 +58,7 @@ nmap ,cl :let @*=expand("%:p")<CR>
 nmap <Leader>u :GundoToggle<CR>
 
 " fzf
-nmap <leader>p :Files<CR>
+nmap <leader>p :GFiles<CR>
 nmap <leader>o :FZFMru --multi<CR>
 nmap <leader>b :Buffers<CR>
 nmap <leader>l :Commits<CR>
@@ -170,5 +170,8 @@ inoremap <silent><expr> <TAB>
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 highlight CocErrorFloat ctermfg=White guifg=#ffffff
+
+" coc extensions
+let g:coc_global_extensions = ['coc-tsserver', 'coc-prettier', 'coc-pairs', 'coc-highlight', 'coc-eslint']
 
 "plugins-config END

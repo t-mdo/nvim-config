@@ -1,3 +1,5 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": ["css", "ruby", "javascript"]
+  "coc.preferences.formatOnSaveFiletypes": ["css", "ruby", "javascript"],
+  "suggest.enablePreselect": false,
+  "suggest.noselect": true
 }
