@@ -58,8 +58,9 @@ nmap ,cl :let @*=expand("%:p")<CR>
 nmap <Leader>u :GundoToggle<CR>
 
 " fzf
-nmap <leader>p :GFiles<CR>
-nmap <leader>o :FZFMru --multi<CR>
+nmap <leader>p :Files<CR>
+"nmap <leader>o :FZFMru --multi<CR>
+nmap <leader>o <nop>
 nmap <leader>b :Buffers<CR>
 nmap <leader>l :Commits<CR>
 nmap <leader>h :BCommits<CR>
@@ -153,10 +154,6 @@ let g:fzf_layout = { 'down': '40%' }
 let g:fzf_mru_relative = 1
 let g:fzf_mru_no_sort = 1
 
-lua << EOF
-  require("nvim-tree").setup()
-EOF
-
 " autocomplete & global lint
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -172,6 +169,13 @@ inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 highlight CocErrorFloat ctermfg=White guifg=#ffffff
 
 " coc extensions
-let g:coc_global_extensions = ['coc-tsserver', 'coc-prettier', 'coc-pairs', 'coc-highlight', 'coc-eslint']
+let g:coc_global_extensions = ['coc-tsserver', 'coc-prettier', 'coc-pairs', 'coc-highlight', 'coc-eslint', 'coc-json', 'coc-html']
+
+inoremap <silent><expr> <C-s> copilot#Accept("")
+let g:copilot_no_tab_map = 1
+
+lua << EOF
+  require("nvim-tree").setup()
+EOF
 
 "plugins-config END
