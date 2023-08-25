@@ -59,12 +59,11 @@ nmap <Leader>u :GundoToggle<CR>
 
 " fzf
 nmap <leader>p :Files<CR>
-"nmap <leader>o :FZFMru --multi<CR>
-nmap <leader>o <nop>
+nmap <leader>o :FZFMru --multi<CR>
 nmap <leader>b :Buffers<CR>
 nmap <leader>l :Commits<CR>
 nmap <leader>h :BCommits<CR>
-nnoremap <leader>sc :Ag <C-R><C-W><CR>
+nnoremap <leader>sc :Rg <C-R><C-W><CR>
 
 " file tree
 nmap <leader>t :NvimTreeToggle<CR>
@@ -111,13 +110,14 @@ Plug 'kyazdani42/nvim-web-devicons'
 
 " autocomplete & global lint
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'github/copilot.vim'
+"Plug 'github/copilot.vim'
 
 " syntax
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-rails'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
+Plug 'mustache/vim-mustache-handlebars'
 
 " extras
 Plug 'tpope/vim-endwise'
@@ -154,6 +154,8 @@ let g:fzf_layout = { 'down': '40%' }
 let g:fzf_mru_relative = 1
 let g:fzf_mru_no_sort = 1
 
+set path=.,,src/**
+
 " autocomplete & global lint
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -169,7 +171,7 @@ inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 highlight CocErrorFloat ctermfg=White guifg=#ffffff
 
 " coc extensions
-let g:coc_global_extensions = ['coc-tsserver', 'coc-prettier', 'coc-pairs', 'coc-highlight', 'coc-eslint', 'coc-json', 'coc-html']
+let g:coc_global_extensions = ['coc-tsserver', 'coc-solargraph', 'coc-prettier', 'coc-pairs', 'coc-highlight', 'coc-eslint', 'coc-json', 'coc-html']
 
 inoremap <silent><expr> <C-s> copilot#Accept("")
 let g:copilot_no_tab_map = 1
