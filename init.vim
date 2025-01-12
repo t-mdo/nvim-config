@@ -1,43 +1,32 @@
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab
+set autoindent
+set formatoptions+=cronm
+
 set number
 set secure
 set hidden
+set nobackup
 set wildmenu
 set wildmode=longest:full,full
 set wildignore=*.o,*.obj,*.bak,*.exe,*.out
 set ruler
+set cursorline
 set showcmd
 set noerrorbells
 set modeline
 set incsearch
 set scrolloff=6
-set fillchars+=vert:/
 set diffopt+=vertical
+set encoding=utf8
+
 set mouse=a
 
-" identation
-set autoindent
-set expandtab
-set shiftwidth=2
-set tabstop=8
-set softtabstop=8
-set splitbelow
-set backspace=indent,eol,start
-
-set timeoutlen=1000 ttimeoutlen=0
-set nobackup
-
-set updatetime=300
-
-syntax on
-filetype plugin indent on
-
-" keybindings START
+" KEYBINDINGS
 
 let mapleader=","
-
-" to uncomment as soon as https://github.com/neovim/neovim/issues/5916 is fixed (C-I - TAB)
-"nmap <Tab> ==
-imap <Tab> <C-v><Tab>
 
 " movements
 nmap <C-h> :bp<CR>
@@ -54,130 +43,258 @@ nmap ¬ :wincmd l<CR>
 nmap ,cs :let @*=expand("%")<CR>
 nmap ,cl :let @*=expand("%:p")<CR>
 
-" undo
-nmap <Leader>u :GundoToggle<CR>
-
-" fzf
-nmap <leader>p :Files<CR>
-nmap <leader>o :FZFMru --multi<CR>
-nmap <leader>b :Buffers<CR>
-nmap <leader>l :Commits<CR>
-nmap <leader>h :BCommits<CR>
-nnoremap <leader>sc :Rg <C-R><C-W><CR>
-
 " file tree
-nmap <leader>t :NvimTreeToggle<CR>
-nmap <leader>f :NvimTreeFindFileToggle<CR>
+nmap <leader>f :Neotree filesystem toggle reveal position=left<CR>
 
-" autocomplete & global lint
+" telescope
+nmap <leader>p <cmd>Telescope find_files<cr>
+nmap <leader>o <cmd>Telescope frecency<cr>
+nmap <leader>e <cmd>Telescope live_grep<cr>
+nmap <leader>r <cmd>Telescope grep_string<cr>
+nmap <leader>b <cmd>Telescope buffers<cr>
+nmap <leader>gd <cmd>Telescope lsp_definitions<cr>
+nmap <leader>gg <cmd>Telescope lsp_implementations<cr>
 
-nmap <silent>gd <Plug>(coc-definition)
-nmap <silent>gy <Plug>(coc-type-definition)
-nmap <silent>gi <Plug>(coc-implementation)
-nmap <silent>gr <Plug>(coc-references)
-nmap <leader>rn <Plug>(coc-rename)
+" diagnostics
+nmap <leader>xx <cmd>Trouble diagnostics toggle<cr>
+nmap <leader>xs <cmd>Trouble lsp toggle<cr>
 
-" keybindings END
+nmap gr <cmd>lua vim.lsp.buf.references()<cr>
 
-"plugins START
+nmap <Plug>DisableSprungeMapping <Plug>Sprunge
+xmap <Plug>DisableSprungeMapping <Plug>Sprunge
+
+" copilot
+inoremap <silent><expr> <C-s> copilot#Accept("")
+let g:copilot_no_tab_map = 1
+
+" highlight
+au BufNewFile,BufRead *.json.jbuilder set ft=ruby
+
+" PLUGINS
 
 call plug#begin('~/.config/nvim/plugged')
 
 " colorscheme
-Plug 'morhetz/gruvbox'
-
-" undo
-Plug 'sjl/gundo.vim'
+"Plug 'sainnhe/gruvbox-material'
+"Plug 'luisiacc/gruvbox-baby', {'branch': 'main'}
+"Plug 'ellisonleao/gruvbox.nvim'
+"Plug 'morhetz/gruvbox'
 
 " git
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-Plug 'mhinz/vim-signify'
+"Plug 'tpope/vim-fugitive'
+"Plug 'tpope/vim-rhubarb'
+"Plug 'mhinz/vim-signify'
 
-" ui bars & icons
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'ryanoasis/vim-devicons'
-
-" fzf
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'pbogut/fzf-mru.vim'
+" telescope
+"Plug 'nvim-telescope/telescope.nvim', { 'branch': 'master' }
+"Plug 'nvim-telescope/telescope-frecency.nvim'
+"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+"Plug 'junegunn/fzf.vim'
 
 " file tree
-Plug 'kyazdani42/nvim-tree.lua'
-Plug 'kyazdani42/nvim-web-devicons'
+"Plug 'nvim-neo-tree/neo-tree.nvim'
+"Plug 'nvim-tree/nvim-web-devicons'
+"Plug 'nvim-lua/plenary.nvim'
+"Plug 'MunifTanjim/nui.nvim'
 
-" autocomplete & global lint
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" treesitter
+"Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+"Plug 'nvim-treesitter/nvim-treesitter-refactor'
+"Plug 'hiphish/rainbow-delimiters.nvim'
+"Plug 'andymass/vim-matchup'
+"Plug 'windwp/nvim-ts-autotag'
+
+" LSP
+"Plug 'neovim/nvim-lspconfig'
+"Plug 'williamboman/mason.nvim'
+"Plug 'williamboman/mason-lspconfig.nvim'
+"Plug 'stevearc/conform.nvim'
+"Plug 'folke/trouble.nvim'
+"Plug 'hrsh7th/cmp-nvim-lsp'
+"Plug 'hrsh7th/cmp-buffer'
+"Plug 'hrsh7th/cmp-path'
+"Plug 'hrsh7th/cmp-cmdline'
+"Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+"Plug 'hrsh7th/nvim-cmp'
+"Plug 'hrsh7th/cmp-vsnip'
+"Plug 'hrsh7th/vim-vsnip'
+
+" LLMs
 "Plug 'github/copilot.vim'
 
-" syntax
-Plug 'vim-ruby/vim-ruby'
-Plug 'tpope/vim-rails'
-Plug 'pangloss/vim-javascript'
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'mustache/vim-mustache-handlebars'
-
 " extras
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'chilicuil/vim-sprunge'
-Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'sbdchd/neoformat'
+"Plug 'lukas-reineke/indent-blankline.nvim'
+"Plug 'tpope/vim-endwise'
+"Plug 'tpope/vim-surround'
+"Plug 'tpope/vim-repeat'
 
 call plug#end()
 
-"plugins END
+" PLUGINS CONFIG
+" color scheme
+"let g:termguicolors=0
+"if has('termguicolors')
+"  set termguicolors
+"endif
+"let g:gruvbox_material_background = 'medium'
+"let g:gruvbox_material_foreground = 'material'
+"let g:gruvbox_material_better_performance = 1
+"let g:gruvbox_contrast_dark="medium"
+"set background=dark
+colorscheme sorbet
 
-"plugins-config START
-
-" colorscheme
-let g:gruvbox_italic = 1
-let g:gruvbox_contrast_dark = 'soft'
-set background=dark
-colorscheme gruvbox
-
-" undo
-let g:gundo_prefer_python3 = 1
-
-" ui bars & icons
-set encoding=utf8
-let g:airline_theme = 'gruvbox'
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#whitespace#enabled = 0
-
-" files navigation
-let g:fzf_layout = { 'down': '40%' }
-let g:fzf_mru_relative = 1
-let g:fzf_mru_no_sort = 1
-
-set path=.,,src/**
-
-" autocomplete & global lint
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1):
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-
-highlight CocErrorFloat ctermfg=White guifg=#ffffff
-
-" coc extensions
-let g:coc_global_extensions = ['coc-tsserver', 'coc-solargraph', 'coc-prettier', 'coc-pairs', 'coc-highlight', 'coc-eslint', 'coc-json', 'coc-html']
-
-inoremap <silent><expr> <C-s> copilot#Accept("")
-let g:copilot_no_tab_map = 1
-
-lua << EOF
-  require("nvim-tree").setup()
-EOF
-
-"plugins-config END
+"lua << ENDOFLUA
+"require('nvim-treesitter.configs').setup({
+"  ensure_installed = {
+"    "c", "lua", "vim", "vimdoc", "javascript", "python", "nginx",
+"    "bash", "dockerfile", "html", "json", "yaml", "ruby"
+"  },
+"  ignore_install = { "gitcommit" },
+"  auto_install = true,
+"  indent = {
+"    enable = true,
+"  },
+"  incremental_selection = {
+"    enable = true,
+"    keymaps = {
+"      init_selection = "gnn",
+"      node_incremental = "gan",
+"      scope_incremental = "gac",
+"      node_decremental = "grm",
+"    },
+"  },
+"  autotag = {
+"    enable = true,
+"  },
+"  highlight = {
+"    enable = true,
+"    additional_vim_regex_highlighting = false,
+"  },
+"  refactor = {
+"    highlight_definitions = {
+"      enable = true,
+"      clear_on_cursor_move = true,
+"    },
+"    highlight_current_scope = { enable = false },
+"    smart_rename = {
+"      enable = true,
+"      keymaps = {
+"        smart_rename = "R",
+"      },
+"    },
+"  },
+"})
+"vim.opt.indentexpr = ''
+"vim.opt.smartindent = true
+"-- lsp
+"require('mason').setup({})
+"require('mason-lspconfig').setup({
+"  automatic_installation = true,
+"  ensure_installed = { "ts_ls", "clangd", "pyright", "ruff_lsp" },
+"})
+"require 'lspconfig'.eslint.setup({
+"settings = {
+"  	packageManager = 'pnpm',
+"  },
+"  on_attach = function(client, bufnr)
+"  vim.api.nvim_create_autocmd("BufWritePre", {
+"    buffer = bufnr,
+"    command = "EslintFixAll",
+"  })
+"  end,
+"})
+"--  formatter
+"require("conform").setup({
+"formatters_by_ft = {
+"  javascript = { "eslint_d" },
+"  javascriptreact = { "eslint_d" },
+"  typescript = { "eslint_d" },
+"  typescriptreact = { "eslint_d" },
+"  python = { "ruff_format" },
+"},
+"})
+"vim.api.nvim_create_autocmd("BufWritePre", {
+"  pattern = "*",
+"  callback = function(args)
+"  require("conform").format({ bufnr = args.buf, quiet = true })
+"  end,
+"})
+"-- cmp
+"local cmp = require'cmp'
+"cmp.setup {
+"  sources = {
+"    { name = 'nvim_lsp' },
+"    { name = 'nvim_lsp_signature_help' },
+"    },
+"  completion = {
+"    keyword_length = 0,
+"    },
+"  mapping = cmp.mapping.preset.insert({
+"  ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
+"  ['<C-e>'] = cmp.mapping.abort(),
+"  ['<CR>'] = cmp.mapping.confirm({ select = false }),
+"  }),
+"}
+"local capabilities = require('cmp_nvim_lsp').default_capabilities()
+"require('lspconfig').ts_ls.setup {
+"  capabilities = capabilities,
+"}
+"require('lspconfig').ruff_lsp.setup({
+"    filetypes = { "python" },
+"    capabilities = capabilities,
+"})
+"require('lspconfig').pyright.setup({
+"  filetypes = { "python" },
+"  capabilities = capabilities,
+"})
+"require 'lspconfig'.clangd.setup {}
+"---- diagnostics
+"require("trouble").setup({
+"  auto_open = false,
+"})
+"-- telescope
+"require('telescope').load_extension('frecency')
+"require('telescope').setup{
+"  defaults = {
+"    mappings = {
+"      i = {
+"        ["<C-j>"] = require('telescope.actions').move_selection_next,
+"        ["<C-k>"] = require('telescope.actions').move_selection_previous,
+"        ["<Esc>"] = require('telescope.actions').close,
+"      },
+"      n = {
+"        ["<C-j>"] = require('telescope.actions').move_selection_next,
+"        ["<C-k>"] = require('telescope.actions').move_selection_previous,
+"        ["<Esc>"] = require('telescope.actions').close,
+"      }
+"    },
+"  }
+"}
+"-- tree
+"require("neo-tree").setup({
+"event_handlers = {{
+"      event = "file_open_requested",
+"      handler = function()
+"      require("neo-tree.command").execute({ action = "close" })
+"      end
+"}},
+"window = {
+"  mappings = {
+"    ["P"] = { "toggle_preview", config = { use_float = false, use_image_nvim = true } },
+"  }
+"  },
+"  filesystem = {
+"    follow_current_file = {
+"      enabled = false,
+"    }
+"    }
+"  })
+"-- Misc
+"require("ibl").setup({
+"scope = {
+"  show_start = false,
+"  show_end = true,
+"},
+"})
+"ENDOFLUA

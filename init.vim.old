@@ -11,69 +11,70 @@ set modeline
 set incsearch
 set scrolloff=6
 set fillchars+=vert:/
+set diffopt+=vertical
 set mouse=a
 
 " identation
-
 set autoindent
-set expandtab
 set shiftwidth=2
-set tabstop=8
-set softtabstop=8
-set splitbelow
-set backspace=indent,eol,start
+set tabstop=4
+"set expandtab
+"set softtabstop=4
+"set splitbelow
+"set backspace=indent,eol,start
 
 set timeoutlen=1000 ttimeoutlen=0
 set nobackup
 
-set diffopt+=vertical
+set updatetime=300
 
-syntax on
-filetype plugin indent on
+"syntax on
+"filetype plugin indent on
 
 " keybindings START
 
 let mapleader=","
 
-nmap <Tab> ==
 imap <Tab> <C-v><Tab>
 
 " movements
-
 nmap <C-h> :bp<CR>
 nmap <C-l> :bn<CR>
 nmap <C-j> :bf<CR>
 nmap <C-k> :bl<CR>
 nmap <C-d> :bd<CR>
-nmap <M-k> :wincmd k<CR>
-nmap <M-j> :wincmd j<CR>
-nmap <M-h> :wincmd h<CR>
-nmap <M-l> :wincmd l<CR>
+nmap ˚ :wincmd k<CR>
+nmap ∆ :wincmd j<CR>
+nmap ˙ :wincmd h<CR>
+nmap ¬ :wincmd l<CR>
 
 " copy path
 nmap ,cs :let @*=expand("%")<CR>
 nmap ,cl :let @*=expand("%:p")<CR>
 
+" undo
+nmap <Leader>u :GundoToggle<CR>
+
 " fzf
 nmap <leader>p :Files<CR>
-nmap <leader>m :FZFMru<CR>
+nmap <leader>o :FZFMru --multi<CR>
 nmap <leader>b :Buffers<CR>
 nmap <leader>l :Commits<CR>
 nmap <leader>h :BCommits<CR>
-nnoremap <leader>sc :Ag <C-R><C-W><CR>
+nnoremap <leader>sc :Rg <C-R><C-W><CR>
 
-" nertree
-nmap <leader>t :NERDTreeToggle<CR>
-nmap <leader>f :NERDTreeFind<CR>
+" file tree
+nmap <leader>f :Neotree filesystem toggle reveal position=left<CR>
 
-" git
-nmap <Leader>ga <Plug>(GitGutterStageHunk)
+" diagnostics
+nmap <leader>xx <cmd>Trouble diagnostics toggle<cr>
+nmap <leader>xs <cmd>Trouble lsp toggle<cr>
 
-" javascript tern
-nmap <Leader>jd :TernDef<CR>
+nmap <leader>sf <cmd>lua vim.lsp.buf.signature_help()<cr>
+nmap <leader>sd <cmd>lua vim.lsp.buf.hover()<cr>
 
-" history
-nmap <Leader>u :GundoToggle<CR>
+nmap <Plug>DisableSprungeMapping <Plug>Sprunge
+xmap <Plug>DisableSprungeMapping <Plug>Sprunge
 
 " keybindings END
 
@@ -81,213 +82,247 @@ nmap <Leader>u :GundoToggle<CR>
 
 call plug#begin('~/.config/nvim/plugged')
 
-"Theme
+" colorscheme
 Plug 'morhetz/gruvbox'
 
-" Undo
+" undo
 Plug 'sjl/gundo.vim'
 
-"Git
+" git
 Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-rhubarb'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'mhinz/vim-signify'
 
-"UI
+" ui bars & icons
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'ryanoasis/vim-devicons'
 
-""FileTools
-Plug 'scrooloose/nerdtree'
-Plug 'kyazdani42/nvim-tree.lua'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+" fzf
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
 
-"Autocomplete
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" file tree
+Plug 'nvim-neo-tree/neo-tree.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'MunifTanjim/nui.nvim'
+Plug "nvim-tree/nvim-web-devicons"
+
+" treesitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-refactor'
+Plug 'hiphish/rainbow-delimiters.nvim'
+Plug 'andymass/vim-matchup'
+Plug 'windwp/nvim-ts-autotag'
+Plug 'yioneko/nvim-yati'
+
+" LSP
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'stevearc/conform.nvim'
+Plug 'folke/trouble.nvim', { 'branch': 'dev' }
+
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
 Plug 'github/copilot.vim'
- "JS
- Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
- Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
- Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
- "Python
- Plug 'zchee/deoplete-jedi'
 
-"Syntax
- "JS
- Plug 'pangloss/vim-javascript'
- Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
- Plug 'maxmellon/vim-jsx-pretty'
- Plug 'othree/yajs.vim'
-
-  " CSS
-  Plug 'hail2u/vim-css3-syntax'
-  Plug 'ap/vim-css-color'
-
- "Python
- Plug 'vim-scripts/indentpython.vim'
- "Hashicorp
- Plug 'hashivim/vim-terraform'
- Plug 'hashivim/vim-vagrant'
-
-"Ruby
- Plug 'vim-ruby/vim-ruby'
- Plug 'tpope/vim-rails'
- Plug 'AndrewRadev/splitjoin.vim'
- "Plug 'slim-template/vim-slim'
-
-"Snippet
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'epilande/vim-react-snippets'
-Plug 'mattn/emmet-vim'
-
-"Lint
-Plug 'w0rp/ale'
-
-"NodeJS
-Plug 'moll/vim-node'
-
-"MarkDown
-Plug 'iamcco/markdown-preview.vim'
-
-"Writing
-Plug 'reedes/vim-pencil'
-
-"Tags
-Plug 'majutsushi/tagbar'
-Plug 'ramitos/jsctags'
-
-"Tests
-Plug 'vim-test/vim-test'
-
-"Other
+" extras
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-surround'
-Plug 'chilicuil/vim-sprunge'
-Plug 'jiangmiao/auto-pairs'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'mklabs/split-term.vim'
-Plug 'sbdchd/neoformat'
-Plug 'skywind3000/asyncrun.vim'
 Plug 'tpope/vim-repeat'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'markonm/traces.vim'
-Plug 'yggdroot/indentline'
+Plug 'chilicuil/vim-sprunge'
+Plug 'windwp/nvim-autopairs'
+"Plug 'lukas-reineke/indent-blankline.nvim'
 
 call plug#end()
 
 "plugins END
 
-"color scheme
+"plugins-config START
+
+" colorscheme
 let g:gruvbox_italic = 1
 let g:gruvbox_contrast_dark = 'soft'
 set background=dark
 colorscheme gruvbox
-set conceallevel=0
 
-let g:fzf_mru_relative = 1
-let g:fzf_layout = { 'down': '40%' }
+"" undo
+let g:gundo_prefer_python3 = 1
 
-" AIRLINE "
+" ui bars & icons
 set encoding=utf8
 let g:airline_theme = 'gruvbox'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#whitespace#enabled = 0
 
-" NERDTREE "
-autocmd StdinReadPre * let s:std_in=1
+" files navigation
+let g:fzf_layout = { 'down': '40%' }
+let g:fzf_mru_relative = 1
+let g:fzf_mru_no_sort = 1
+let $FZF_DEFAULT_COMMAND = 'rg --files'
 
-let g:NERDTreeMinimalUI = 1
-let g:NERDTreeIgnore = ['\.o$', '\~$']
-let g:NERDTreeCascadeOpenSingleChildDir = 1
-let g:NERDTreeMouseMode = 1
-let NERDTreeQuitOnOpen=1
-
-" NERDTREE-GIT "
-
-let g:NERDTreeGitStatusIndicatorMapCustom = {
-      \ "Modified"  : "✹",
-      \ "Staged"    : "✚",
-      \ "Untracked" : "✭",
-      \ "Renamed"   : "➜",
-      \ "Unmerged"  : "═",
-      \ "Deleted"   : "✖",
-      \ "Dirty"     : "✗",
-      \ "Clean"     : "✔︎",
-      \ "Unknown"   : "?"
-      \ }
+set path=.,,src/**
 
 lua << EOF
-local chadtree_settings = {
-    options = {
-        close_on_open= true
-    }
+-- treesitter / syntax highlighting and indentation
+require"nvim-treesitter.configs".setup {
+  ensure_installed = {"typescript", "tsx", "javascript", "markdown", "markdown_inline", "c", "vim", "lua", "vimdoc", "ruby", "astro" },
+  highlight = {
+    enable = true,
+  },
+  matchup = {
+    enable = true,
+  },
+  indent = {
+    enable = true,
+  },
+  refactor = {
+    highlight_definitions = {
+      enable = true,
+    },
+    smart_rename = {
+      enable = true,
+      keymaps = {
+        smart_rename = "cr",
+      },
+    },
+    },
+  autotag = {
+    enable = true,
+},
 }
-vim.api.nvim_set_var("chadtree_settings", chadtree_settings)
+vim.g.rainbow_delimiters = {
+  query = {
+    [''] = 'rainbow-parens',
+  },
+  highlight = {
+    'GruvBoxRed',
+    'GruvBoxYellow',
+    'GruvBoxBlue',
+    'GruvBoxOrange',
+    'GruvBoxBlue',
+    'GruvBoxAqua',
+    'GruvBoxPurple',
+  },
+}
+-- mason
+require'mason'.setup {}
+require"mason-lspconfig".setup {
+  automatic_installation = true,
+  ensure_installed = { "tsserver" },
+}
+require 'lspconfig'.eslint.setup({
+settings = {
+  	packageManager = 'pnpm',
+  },
+  on_attach = function(client, bufnr)
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    buffer = bufnr,
+    command = "EslintFixAll",
+  })
+  end,
+})
+--  prettier
+require("conform").setup({
+formatters_by_ft = {
+  javascript = { { "prettierd" } },
+  javascriptreact = { { "prettierd" } },
+  typescript = { { "prettierd" } },
+  typescriptreact = { { "prettierd" } },
+},
+})
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function(args)
+  require("conform").format({ bufnr = args.buf, quiet = true })
+  end,
+})
+-- cmp / autocomplete
+local cmp = require'cmp'
+cmp.setup {
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'nvim_lsp_signature_help' },
+    },
+  completion = {
+    keyword_length = 0,
+    },
+  mapping = cmp.mapping.preset.insert({
+  ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
+  ['<C-e>'] = cmp.mapping.abort(),
+  ['<CR>'] = cmp.mapping.confirm({ select = true }),
+  }),
+}
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+require('lspconfig').tsserver.setup {
+  capabilities = capabilities,
+}
+-- diagnostics
+require("trouble").setup {
+  auto_open = false,
+}
+-- tree
+require("neo-tree").setup({
+window = {
+  mappings = {
+    ["P"] = { "toggle_preview", config = { use_float = false, use_image_nvim = true } },
+  }
+  },
+  filesystem = {
+    follow_current_file = {
+      enabled = false,
+    }
+    }
+  })
+require("nvim-autopairs").setup {}
+-- Highlights colors
+vim.api.nvim_set_hl(0, "@keyword.tsx", { link = "GruvboxOrange" })
+vim.api.nvim_set_hl(0, "@tag.tsx", { link = "GruvBoxGreenBold" })
+vim.api.nvim_set_hl(0, "@tag.builtin.tsx", { link = "GruvBoxBlue" })
+vim.api.nvim_set_hl(0, "@tag.attribute.tsx", { link = "GruvBoxYellow" })
+vim.api.nvim_set_hl(0, "@tag.delimiter.tsx", { link = "GruvBoxBlue" })
+vim.api.nvim_set_hl(0, "@variable.tsx", { link = "GruvBoxWhite" })
+vim.api.nvim_set_hl(0, "@variable.parameter.tsx", { link = "GruvBoxWhite" })
+vim.api.nvim_set_hl(0, "@lsp.type.variable.typescriptreact", { link = "GruvBoxWhite" })
+vim.api.nvim_set_hl(0, "@keyword.import.tsx", { link = "GruvBoxAqua" })
+vim.api.nvim_set_hl(0, "@punctuation.delimiter.tsx", { link = "GruvBoxWhite" })
+vim.api.nvim_set_hl(0, "@lsp.type.parameter.typescriptreact", { link = "GruvBoxWhite" })
+vim.api.nvim_set_hl(0, "@keyword.typescript", { link = "GruvboxOrange" })
+vim.api.nvim_set_hl(0, "@tag.typescript", { link = "GruvBoxGreenBold" })
+vim.api.nvim_set_hl(0, "@tag.builtin.typescript", { link = "GruvBoxBlue" })
+vim.api.nvim_set_hl(0, "@tag.attribute.typescript", { link = "GruvBoxYellow" })
+vim.api.nvim_set_hl(0, "@tag.delimiter.typescript", { link = "GruvBoxBlue" })
+vim.api.nvim_set_hl(0, "@variable.typescript", { link = "GruvBoxWhite" })
+vim.api.nvim_set_hl(0, "@variable.parameter.typescript", { link = "GruvBoxWhite" })
+vim.api.nvim_set_hl(0, "@lsp.type.variable.typescript", { link = "GruvBoxWhite" })
+vim.api.nvim_set_hl(0, "@keyword.import.typescript", { link = "GruvBoxAqua" })
+vim.api.nvim_set_hl(0, "@punctuation.delimiter.typescript", { link = "GruvBoxWhite" })
+vim.api.nvim_set_hl(0, "@lsp.type.parameter.typescript", { link = "GruvBoxWhite" })
+vim.api.nvim_set_hl(0, "@keyword.javascript", { link = "GruvboxOrange" })
+vim.api.nvim_set_hl(0, "@tag.javascript", { link = "GruvBoxGreenBold" })
+vim.api.nvim_set_hl(0, "@tag.builtin.javascript", { link = "GruvBoxBlue" })
+vim.api.nvim_set_hl(0, "@tag.attribute.javascript", { link = "GruvBoxYellow" })
+vim.api.nvim_set_hl(0, "@tag.delimiter.javascript", { link = "GruvBoxBlue" })
+vim.api.nvim_set_hl(0, "@variable.javascript", { link = "GruvBoxWhite" })
+vim.api.nvim_set_hl(0, "@variable.parameter.javascript", { link = "GruvBoxWhite" })
+vim.api.nvim_set_hl(0, "@lsp.type.variable.javascript", { link = "GruvBoxWhite" })
+vim.api.nvim_set_hl(0, "@keyword.import.javascript", { link = "GruvBoxAqua" })
+vim.api.nvim_set_hl(0, "@punctuation.delimiter.javascript", { link = "GruvBoxWhite" })
+vim.api.nvim_set_hl(0, "@lsp.type.parameter.javascript", { link = "GruvBoxWhite" })
+vim.api.nvim_set_hl(0, "@tag.delimiter.astro", { link = "GruvBoxBlue" })
+vim.api.nvim_set_hl(0, "@tag.astro", { link = "GruvBoxBlue" })
 EOF
 
-" GITGUTTER "
-set updatetime=100
-let g:gitgutter_map_keys=0
+" copilot
+inoremap <silent><expr> <C-s> copilot#Accept("")
+let g:copilot_no_tab_map = 1
 
-" DEOPLETE "
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_ignore_case = 1
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-call deoplete#custom#option('num_processes', 4)
-call deoplete#custom#option('sources', {
-\ '_': ['ale'],
-\})
-
-
-let g:tern#command = ["tern"]
-let g:tern#arguments = ["--persistent --no-port-file"]
-autocmd CompleteDone * pclose!
-
-" ALE "
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_text_changed = 0
-let g:ale_ruby_rubocop_executable = 'bundle'
-let g:ale_fix_on_save = 1
-let g:ale_fixers = {
-      \   'javascript': ['prettier'],
-      \   'css': ['prettier'],
-      \   'ruby': ['prettier'],
-      \}
-
-" JAVASCRIPT "
-let g:javascript_plugin_jsdoc = 1
-let g:javascript_enable_domhtmlcss = 1
-set conceallevel=1
-let g:jsx_ext_required = 0
-let g:javascript_plugin_flow = 0
-let g:vim_jsx_pretty_colorful_config = 1
-
-" ULTISNIPS "
-let g:UltiSnipsExpandTrigger = "<C-S>"
-let g:UltiSnipsJumpForwardTrigger = "<C-D>"
-let g:UltiSnipsJumpBackwardTrigger = "<C-A>"
-
-" CTAGS "
-"nmap <Leader>t :TagbarToggle<CR>
-
-" AUTO-PAIRS "
-let g:AutoPairsMultilineClose = 0
-let g:AutoPairsFlyMode = 0
-
-" PENCIL "
-let g:pencil#wrapModeDefault = 'soft'
-augroup pencil
-  autocmd!
-  autocmd FileType markdown,md call pencil#init()
-  autocmd FileType text         call pencil#init()
-augroup END
-
-" UNDO "
-let g:gundo_prefer_python3 = 1
+"plugins-config END
