@@ -16,13 +16,12 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
   -- Color scheme
-  -- use 'ellisonleao/gruvbox.nvim'
   use 'sainnhe/gruvbox-material'
 
   -- Git
   use 'tpope/vim-fugitive'
   use 'tpope/vim-rhubarb'
-  use 'mhinz/vim-signify'
+  use 'lewis6991/gitsigns.nvim'
 
   -- Navigation
   use 'ibhagwan/fzf-lua'
@@ -35,7 +34,12 @@ return require('packer').startup(function(use)
     }
   }
   use {'akinsho/bufferline.nvim', commit = '9f0826ae6adfd836a23bf8a4910e3c07450211f4', tag = "*", requires = 'nvim-tree/nvim-web-devicons'}
+  use {
+  'nvim-lualine/lualine.nvim',
+  requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+  }
 
+  -- Treesitter
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate'
@@ -59,11 +63,11 @@ return require('packer').startup(function(use)
   use 'hrsh7th/cmp-nvim-lsp-signature-help'
   use 'hrsh7th/nvim-cmp'
 
-
   -- Misc
   use 'lukas-reineke/indent-blankline.nvim'
   use 'tpope/vim-endwise'
   use 'tpope/vim-surround'
   use 'tpope/vim-repeat'
   use 'tpope/vim-rails'
+  use 'kevinhwang91/nvim-bqf'
 end)

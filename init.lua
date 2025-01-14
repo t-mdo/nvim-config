@@ -25,8 +25,8 @@ vim.opt.mouse = 'a'
 
 require('plugins')
 require('keymaps')
+require('git')
 require('treesitter')
 require('colorscheme')
 require('file_navigation')
 require('lsp')
-require('misc')

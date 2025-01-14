@@ -41,6 +41,9 @@ cmp.setup {
   sources = {
     { name = 'nvim_lsp' },
     { name = 'nvim_lsp_signature_help' },
+    { name = 'treesitter' },
+    { name = 'buffer' },
+    { name = 'path' },
     },
   completion = {
     keyword_length = 0,
