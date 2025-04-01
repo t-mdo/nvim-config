@@ -109,11 +109,6 @@ _G.packer_plugins = {
     path = "/Users/tmo/.local/share/nvim/site/pack/packer/start/conform.nvim",
     url = "https://github.com/stevearc/conform.nvim"
   },
-  ["copilot.vim"] = {
-    loaded = true,
-    path = "/Users/tmo/.local/share/nvim/site/pack/packer/start/copilot.vim",
-    url = "https://github.com/github/copilot.vim"
-  },
   ["fzf-lua"] = {
     loaded = true,
     path = "/Users/tmo/.local/share/nvim/site/pack/packer/start/fzf-lua",

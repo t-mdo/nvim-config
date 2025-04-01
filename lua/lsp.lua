@@ -8,10 +8,11 @@ settings = {
   	packageManager = 'pnpm',
   },
   on_attach = function(client, bufnr)
-  vim.api.nvim_create_autocmd("BufWritePre", {
-    buffer = bufnr,
-    command = "EslintFixAll",
-  })
+    client.server_capabilities.documentFormattingProvider = false
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      command = "EslintFixAll",
+    })
   end,
 })
 require('lspconfig').ruby_lsp.setup({
@@ -23,6 +24,7 @@ require('lspconfig').ruby_lsp.setup({
 --  formatter
 require("conform").setup({
 formatters_by_ft = {
+  c = { "clang_format" },
   javascript = { "eslint_d" },
   javascriptreact = { "eslint_d" },
   typescript = { "eslint_d" },

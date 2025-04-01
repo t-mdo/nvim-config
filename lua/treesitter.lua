@@ -29,12 +29,6 @@ require('nvim-treesitter.configs').setup({
       clear_on_cursor_move = true,
     },
     highlight_current_scope = { enable = false },
-    smart_rename = {
-      enable = true,
-      keymaps = {
-        smart_rename = "R",
-      },
-    },
   },
 })
 vim.opt.smartindent = true
