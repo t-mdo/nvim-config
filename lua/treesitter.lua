@@ -8,8 +8,11 @@ require('nvim-treesitter.configs').setup({
     enable = true,
     additional_vim_regex_highlighting = false,
   },
-  indent = {
+  yati = {
     enable = true,
+  },
+  indent = {
+    enable = false,
   },
   incremental_selection = {
     enable = true,
@@ -31,6 +34,3 @@ require('nvim-treesitter.configs').setup({
     highlight_current_scope = { enable = false },
   },
 })
-vim.opt.smartindent = true
-vim.bo.autoindent = true
-vim.bo.smartindent = true

@@ -48,6 +48,7 @@ return require('packer').startup(function(use)
   use 'hiphish/rainbow-delimiters.nvim'
   use 'andymass/vim-matchup'
   use 'windwp/nvim-ts-autotag'
+  use ({ "yioneko/nvim-yati", tag = "*", requires = "nvim-treesitter/nvim-treesitter" })
 
   -- LSP
   use 'neovim/nvim-lspconfig'
