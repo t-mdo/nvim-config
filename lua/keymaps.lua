@@ -20,7 +20,8 @@ vim.keymap.set('n', ',cs', ':let @*=expand("%")<CR>')
 vim.keymap.set('n', ',cl', ':let @*=expand("%:p")<CR>')
 
 -- File Tree
-vim.keymap.set('n', '<leader>f', ':Neotree filesystem toggle reveal position=left<CR>')
+vim.keymap.set('n', '<leader>f', ':Neotree filesystem reveal toggle position=left<CR>')
+vim.keymap.set('n', '<leader>F', ':Neotree filesystem reveal toggle position=current<CR>')
 
 -- FZF
 vim.keymap.set('n', '<leader>p', '<cmd>FzfLua files<cr>')
@@ -34,6 +35,9 @@ vim.keymap.set('n', '<leader>gg', '<cmd>FzfLua lsp_references<cr>')
 vim.keymap.set('n', '<leader>xs', '<cmd>FzfLua diagnostics_workspace<cr>')
 vim.keymap.set('n', '<leader>xx', ':lua vim.diagnostic.open_float()<cr>')
 vim.keymap.set('n', '<leader>h', '<cmd>lua vim.lsp.buf.hover()<cr>')
+
+-- Treesitter
+vim.keymap.set('n', ',cc', '<cmd>TSContextToggle<cr>')
 
 -- LSP
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename)

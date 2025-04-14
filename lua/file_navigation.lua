@@ -20,6 +20,11 @@ require("neo-tree").setup({
   }
 })
 require('fzf-lua').setup({
+  keymap = {
+    builtin = {
+      ["<C-s>"] = "toggle-preview",
+    }
+  },
   actions = {
     files = {
       ["default"] = require("fzf-lua.actions").file_edit,

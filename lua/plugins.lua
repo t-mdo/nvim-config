@@ -45,6 +45,10 @@ return require('packer').startup(function(use)
     run = ':TSUpdate'
   }
   use 'nvim-treesitter/nvim-treesitter-refactor'
+  use {
+  "nvim-treesitter/nvim-treesitter-context",
+  requires = "nvim-treesitter/nvim-treesitter"
+  }
   use 'hiphish/rainbow-delimiters.nvim'
   use 'andymass/vim-matchup'
   use 'windwp/nvim-ts-autotag'

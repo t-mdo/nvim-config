@@ -174,6 +174,11 @@ _G.packer_plugins = {
     path = "/Users/tmo/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
   },
+  ["nvim-treesitter-context"] = {
+    loaded = true,
+    path = "/Users/tmo/.local/share/nvim/site/pack/packer/start/nvim-treesitter-context",
+    url = "https://github.com/nvim-treesitter/nvim-treesitter-context"
+  },
   ["nvim-treesitter-refactor"] = {
     loaded = true,
     path = "/Users/tmo/.local/share/nvim/site/pack/packer/start/nvim-treesitter-refactor",

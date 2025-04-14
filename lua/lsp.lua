@@ -23,19 +23,19 @@ require('lspconfig').ruby_lsp.setup({
 })
 --  formatter
 require("conform").setup({
-formatters_by_ft = {
-  c = { "clang_format" },
-  javascript = { "eslint_d" },
-  javascriptreact = { "eslint_d" },
-  typescript = { "eslint_d" },
-  typescriptreact = { "eslint_d" },
-  python = { "ruff_format" },
-},
+  formatters_by_ft = {
+    c = { "clang_format" },
+    javascript = { "prettier" },
+    javascriptreact = { "prettier" },
+    typescript = { "prettier" },
+    typescriptreact = { "prettier" },
+    python = { "ruff_format" },
+  },
 })
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
   callback = function(args)
-  require("conform").format({ bufnr = args.buf, quiet = true })
+    require("conform").format({ bufnr = args.buf, quiet = true })
   end,
 })
 local cmp = require'cmp'
@@ -46,14 +46,14 @@ cmp.setup {
     { name = 'treesitter' },
     { name = 'buffer' },
     { name = 'path' },
-    },
+  },
   completion = {
     keyword_length = 0,
-    },
+  },
   mapping = cmp.mapping.preset.insert({
-  ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
-  ['<C-e>'] = cmp.mapping.abort(),
-  ['<CR>'] = cmp.mapping.confirm({ select = false }),
+    ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = false }),
   }),
 }
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -61,8 +61,8 @@ require('lspconfig').ts_ls.setup {
   capabilities = capabilities,
 }
 require('lspconfig').ruff.setup({
-    filetypes = { "python" },
-    capabilities = capabilities,
+  filetypes = { "python" },
+  capabilities = capabilities,
 })
 require('lspconfig').pyright.setup({
   filetypes = { "python" },
