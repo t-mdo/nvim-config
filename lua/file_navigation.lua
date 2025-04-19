@@ -30,6 +30,9 @@ require('fzf-lua').setup({
       ["default"] = require("fzf-lua.actions").file_edit,
     },
   },
+  oldfiles = {
+    include_current_session = true,
+  },
 })
 require("bufferline").setup{
   options = {

@@ -25,10 +25,10 @@ require('lspconfig').ruby_lsp.setup({
 require("conform").setup({
   formatters_by_ft = {
     c = { "clang_format" },
-    javascript = { "prettier" },
-    javascriptreact = { "prettier" },
-    typescript = { "prettier" },
-    typescriptreact = { "prettier" },
+    javascript = { "biome" },
+    javascriptreact = { "biome"},
+    typescript = { "biome"},
+    typescriptreact = { "biome"},
     python = { "ruff_format" },
   },
 })
