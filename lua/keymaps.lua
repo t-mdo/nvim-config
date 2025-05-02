@@ -20,7 +20,7 @@ vim.keymap.set('n', ',cs', ':let @*=expand("%")<CR>')
 vim.keymap.set('n', ',cl', ':let @*=expand("%:p")<CR>')
 
 -- File Tree
-vim.keymap.set('n', '<leader>f', ':Neotree filesystem reveal toggle position=left<CR>')
+vim.keymap.set('n', '<leader>f', ':Neotree filesystem reveal toggle position=right<CR>')
 vim.keymap.set('n', '<leader>F', ':Neotree filesystem reveal toggle position=current<CR>')
 
 -- FZF
