@@ -3,19 +3,19 @@ require('mason').setup({})
 require('mason-lspconfig').setup({
   ensure_installed = { "ts_ls", "eslint", "clangd", "pyright", "ruff" }, -- ruby_lsp in project gemfile to use rbenv
 })
-require 'lspconfig'.eslint.setup({
+vim.lsp.config('eslint', {
 settings = {
   	packageManager = 'pnpm',
   },
-  on_attach = function(client, bufnr)
-    client.server_capabilities.documentFormattingProvider = false
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      buffer = bufnr,
-      command = "EslintFixAll",
-    })
-  end,
+  --on_attach = function(client, bufnr)
+  --  client.server_capabilities.documentFormattingProvider = false
+  --  vim.api.nvim_create_autocmd("BufWritePre", {
+  --    buffer = bufnr,
+  --    command = "EslintFixAll",
+  --  })
+  --end,
 })
-require('lspconfig').ruby_lsp.setup({
+vim.lsp.config('ruby_lsp', {
   cmd = { 'ruby-lsp' },
   cmd_env = {
     PATH = vim.fn.getenv('PATH'),
@@ -26,29 +26,30 @@ require("conform").setup({
   formatters_by_ft = {
     c = { "clang_format" },
     javascript = {
-      --"biome",
+      "biome",
       "prettier",
+      stop_after_first = true,
     },
     javascriptreact = {
-      --"biome",
+      "biome",
       "prettier",
+      stop_after_first = true,
     },
     typescript = {
-      --"biome",
+      "biome",
       "prettier",
+      stop_after_first = true,
     },
     typescriptreact = {
-      --"biome",
+      "biome",
       "prettier",
+      stop_after_first = true,
     },
     python = { "ruff_format" },
   },
-})
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*",
-  callback = function(args)
-    require("conform").format({ bufnr = args.buf, quiet = true })
-  end,
+  format_on_save = {
+    lsp_fallback = true,
+  },
 })
 local cmp = require'cmp'
 cmp.setup {
@@ -60,7 +61,7 @@ cmp.setup {
     { name = 'path' },
   },
   completion = {
-    keyword_length = 0,
+    keyword_length = 3,
   },
   mapping = cmp.mapping.preset.insert({
     ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
@@ -69,20 +70,20 @@ cmp.setup {
   }),
 }
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
-require('lspconfig').ts_ls.setup {
+vim.lsp.config('ts_ls', {
   capabilities = capabilities,
-}
-require('lspconfig').ruff.setup({
+})
+vim.lsp.config('ruff', {
   filetypes = { "python" },
   capabilities = capabilities,
 })
-require('lspconfig').pyright.setup({
+vim.lsp.config('pyright', {
   filetypes = { "python" },
   capabilities = capabilities,
 })
-require 'lspconfig'.clangd.setup {
+vim.lsp.config('clangd', {
   capabilities = capabilities,
-}
-require 'lspconfig'.ruby_lsp.setup {
+})
+vim.lsp.config('ruby_lsp', {
   capabilities = capabilities,
-}
+})

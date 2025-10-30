@@ -10,10 +10,10 @@ vim.keymap.set('n', '<C-k>', ':bl<CR>')
 vim.keymap.set('n', '<C-d>', ':bd<CR>')
 
 -- Window Navigation
-vim.keymap.set('n', '˚', ':wincmd k<CR>')
-vim.keymap.set('n', '∆', ':wincmd j<CR>')
-vim.keymap.set('n', '˙', ':wincmd h<CR>')
-vim.keymap.set('n', '¬', ':wincmd l<CR>')
+vim.keymap.set('n', '<M-h>', '<C-w>h', { desc = 'Move to left split' })
+vim.keymap.set('n', '<M-j>', '<C-w>j', { desc = 'Move to split below' })
+vim.keymap.set('n', '<M-k>', '<C-w>k', { desc = 'Move to split above' })
+vim.keymap.set('n', '<M-l>', '<C-w>l', { desc = 'Move to right split' })
 
 -- Copy Path
 vim.keymap.set('n', ',cs', ':let @*=expand("%")<CR>')
@@ -36,6 +36,7 @@ vim.keymap.set('n', 'gr', '<cmd>FzfLua lsp_references<cr>')
 vim.keymap.del('n', 'grr')
 vim.keymap.del('n', 'gri')
 vim.keymap.del('n', 'gra')
+vim.keymap.del('n', 'grt')
 vim.keymap.del('n', 'grn')
 vim.keymap.set('n', '<leader>a', '<cmd>lua vim.lsp.buf.code_action()<cr>')
 vim.keymap.set('n', '<leader>x', '<cmd>lua vim.diagnostic.open_float()<cr>')

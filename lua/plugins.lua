@@ -17,6 +17,10 @@ return require('packer').startup(function(use)
 
   -- Color scheme
   use 'sainnhe/gruvbox-material'
+  use 'folke/tokyonight.nvim'
+  use "rebelot/kanagawa.nvim"
+  use "savq/melange-nvim"
+  use { "catppuccin/nvim", as = "catppuccin" }
 
   -- Git
   use 'tpope/vim-fugitive'
@@ -33,7 +37,7 @@ return require('packer').startup(function(use)
       'MunifTanjim/nui.nvim'
     }
   }
-  use {'akinsho/bufferline.nvim', commit = '9f0826ae6adfd836a23bf8a4910e3c07450211f4', tag = "*", requires = 'nvim-tree/nvim-web-devicons'}
+  use {'akinsho/bufferline.nvim', tag = "*", requires = 'nvim-tree/nvim-web-devicons'}
   use {
   'nvim-lualine/lualine.nvim',
   requires = { 'nvim-tree/nvim-web-devicons', opt = true }
@@ -52,7 +56,7 @@ return require('packer').startup(function(use)
   use 'hiphish/rainbow-delimiters.nvim'
   use 'andymass/vim-matchup'
   use 'windwp/nvim-ts-autotag'
-  use ({ "yioneko/nvim-yati", tag = "*", requires = "nvim-treesitter/nvim-treesitter" })
+  -- use ({ "yioneko/nvim-yati", tag = "*", requires = "nvim-treesitter/nvim-treesitter" })
 
   -- LSP
   use 'neovim/nvim-lspconfig'
