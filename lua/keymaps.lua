@@ -52,15 +52,6 @@ vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename)
 vim.g.copilot_no_tab_map = true
 vim.api.nvim_set_keymap('i', '<C-s>', 'copilot#Accept("")', { expr = true, silent = true })
 
--- Prevent automatic normal mode on focus loss
-vim.api.nvim_create_autocmd("FocusLost", {
-  pattern = "*",
-  callback = function()
-    -- Prevent default behavior that switches to normal mode
-    return true
-  end,
-})
-
 -- File Type Detection
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
   pattern = "*.json.jbuilder",
