@@ -1,7 +1,7 @@
 -- lsp
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  ensure_installed = { "eslint", "clangd", "pyright", "ruff", "rust_analyzer" }, -- ruby_lsp in project gemfile to use rbenv
+  ensure_installed = { "clangd", "pyright", "ruff", "rust_analyzer" }, -- ruby_lsp in project gemfile to use rbenv
 })
 vim.lsp.config('eslint', {
 settings = {

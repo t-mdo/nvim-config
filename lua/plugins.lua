@@ -1,89 +1,95 @@
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    vim.cmd [[packadd packer.nvim]]
-    return true
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
   end
-  return false
 end
+vim.opt.rtp:prepend(lazypath)
 
-local packer_bootstrap = ensure_packer()
-
-return require('packer').startup(function(use)
-  -- Package manager
-  use 'wbthomason/packer.nvim'
-
-  -- Color scheme
-  use 'sainnhe/gruvbox-material'
-  use 'folke/tokyonight.nvim'
-  use "rebelot/kanagawa.nvim"
-  use "savq/melange-nvim"
-  use { "catppuccin/nvim", as = "catppuccin" }
+require("lazy").setup({
+  -- Color schemes
+  'sainnhe/gruvbox-material',
+  'folke/tokyonight.nvim',
+  'rebelot/kanagawa.nvim',
+  'savq/melange-nvim',
+  { 'catppuccin/nvim', name = 'catppuccin' },
 
   -- Git
-  use 'tpope/vim-fugitive'
-  use 'tpope/vim-rhubarb'
-  use 'lewis6991/gitsigns.nvim'
+  'tpope/vim-fugitive',
+  'tpope/vim-rhubarb',
+  'lewis6991/gitsigns.nvim',
 
   -- Navigation
-  use 'ibhagwan/fzf-lua'
-  use {
+  {
+    'ibhagwan/fzf-lua',
+    commit = 'c926a87',
+  },
+  {
     'nvim-neo-tree/neo-tree.nvim',
-    requires = {
+    dependencies = {
       'nvim-tree/nvim-web-devicons',
       'nvim-lua/plenary.nvim',
       'MunifTanjim/nui.nvim'
     }
-  }
-  use {'akinsho/bufferline.nvim', tag = "*", requires = 'nvim-tree/nvim-web-devicons'}
-  use {
-  'nvim-lualine/lualine.nvim',
-  requires = { 'nvim-tree/nvim-web-devicons', opt = true }
-  }
+  },
+  {
+    'akinsho/bufferline.nvim',
+    tag = '*',
+    dependencies = 'nvim-tree/nvim-web-devicons'
+  },
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' }
+  },
 
   -- Treesitter
-  use {
+  {
     'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate'
-  }
-  use 'nvim-treesitter/nvim-treesitter-refactor'
-  use {
-  "nvim-treesitter/nvim-treesitter-context",
-  requires = "nvim-treesitter/nvim-treesitter"
-  }
-  use 'hiphish/rainbow-delimiters.nvim'
-  use 'andymass/vim-matchup'
-  use 'windwp/nvim-ts-autotag'
-  -- use ({ "yioneko/nvim-yati", tag = "*", requires = "nvim-treesitter/nvim-treesitter" })
+    build = ':TSUpdate'
+  },
+  'nvim-treesitter/nvim-treesitter-refactor',
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    dependencies = 'nvim-treesitter/nvim-treesitter'
+  },
+  'hiphish/rainbow-delimiters.nvim',
+  'andymass/vim-matchup',
+  'windwp/nvim-ts-autotag',
 
   -- LSP
-  use 'neovim/nvim-lspconfig'
-  use 'williamboman/mason.nvim'
-  use 'williamboman/mason-lspconfig.nvim'
-  use 'stevearc/conform.nvim'
-  use {
-    "pmizio/typescript-tools.nvim",
-    requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+  'neovim/nvim-lspconfig',
+  'williamboman/mason.nvim',
+  'williamboman/mason-lspconfig.nvim',
+  'stevearc/conform.nvim',
+  {
+    'pmizio/typescript-tools.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
     config = function()
-      require("typescript-tools").setup {}
+      require('typescript-tools').setup {}
     end,
-  }
+  },
 
   -- Autocompletion
-  use 'hrsh7th/cmp-nvim-lsp'
-  use 'hrsh7th/cmp-buffer'
-  use 'hrsh7th/cmp-path'
-  use 'hrsh7th/cmp-cmdline'
-  use 'hrsh7th/cmp-nvim-lsp-signature-help'
-  use 'hrsh7th/nvim-cmp'
+  'hrsh7th/cmp-nvim-lsp',
+  'hrsh7th/cmp-buffer',
+  'hrsh7th/cmp-path',
+  'hrsh7th/cmp-cmdline',
+  'hrsh7th/cmp-nvim-lsp-signature-help',
+  'hrsh7th/nvim-cmp',
 
   -- Misc
-  use 'lukas-reineke/indent-blankline.nvim'
-  use 'tpope/vim-endwise'
-  use 'tpope/vim-surround'
-  use 'tpope/vim-repeat'
-  use 'tpope/vim-rails'
-  use 'kevinhwang91/nvim-bqf'
-end)
+  'lukas-reineke/indent-blankline.nvim',
+  'tpope/vim-endwise',
+  'tpope/vim-surround',
+  'tpope/vim-repeat',
+  'tpope/vim-rails',
+  'kevinhwang91/nvim-bqf',
+})

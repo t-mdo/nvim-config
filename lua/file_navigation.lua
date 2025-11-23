@@ -20,12 +20,6 @@ require("neo-tree").setup({
   }
 })
 require('fzf-lua').setup({
-  winopts = {
-    on_create = function()
-      -- Disable mouse in FZF windows to prevent hover from breaking the picker
-      vim.opt_local.mouse = ""
-    end,
-  },
   keymap = {
     builtin = {
       ["<C-s>"] = "toggle-preview",
