@@ -30,7 +30,7 @@ require("lazy").setup({
   -- Navigation
   {
     'ibhagwan/fzf-lua',
-    commit = 'c926a87',
+    branch = 'main'
   },
   {
     'nvim-neo-tree/neo-tree.nvim',
@@ -42,7 +42,6 @@ require("lazy").setup({
   },
   {
     'akinsho/bufferline.nvim',
-    tag = '*',
     dependencies = 'nvim-tree/nvim-web-devicons'
   },
   {
@@ -84,6 +83,7 @@ require("lazy").setup({
   'hrsh7th/cmp-cmdline',
   'hrsh7th/cmp-nvim-lsp-signature-help',
   'hrsh7th/nvim-cmp',
+  'github/copilot.vim',
 
   -- Misc
   'lukas-reineke/indent-blankline.nvim',

@@ -27,9 +27,15 @@ vim.keymap.set('n', '<leader>F', ':Neotree filesystem reveal toggle position=cur
 vim.keymap.set('n', '<leader>p', '<cmd>FzfLua files<cr>')
 vim.keymap.set('n', '<leader>o', '<cmd>FzfLua oldfiles<cr>')
 vim.keymap.set('n', '<leader>e', '<cmd>FzfLua grep<cr>')
-vim.keymap.set('n', '<leader>E', '<cmd>FzfLua grep_last<cr>')
+vim.keymap.set('n', '<leader>t', '<cmd>FzfLua grep --type ts<cr>')
+vim.keymap.set('n', '<leader>E', '<cmd>FzfLua grep resume=true<cr>')
 vim.keymap.set('n', '<leader>w', '<cmd>FzfLua grep_cword<cr>')
 vim.keymap.set('n', '<leader>b', '<cmd>FzfLua buffers<cr>')
+vim.keymap.set('n', '<leader>j', '<cmd>FzfLua jumps<cr>')
+vim.keymap.set('n', '<leader>gs', '<cmd>FzfLua git_status<cr>')
+vim.keymap.set('n', '<leader>gc', '<cmd>FzfLua git_commits<cr>')
+vim.keymap.set('n', '<leader>gb', '<cmd>FzfLua git_branches<cr>')
+vim.keymap.set('n', '<leader>d', '<cmd>FzfLua lsp_document_diagnostics<cr>')
 vim.keymap.set('n', 'gd', '<cmd>FzfLua lsp_definitions<cr>')
 vim.keymap.set('n', 'gt', '<cmd>FzfLua lsp_typedefs<cr>')
 vim.keymap.set('n', 'gr', '<cmd>FzfLua lsp_references<cr>')
@@ -43,13 +49,13 @@ vim.keymap.set('n', '<leader>x', '<cmd>lua vim.diagnostic.open_float()<cr>')
 vim.keymap.set('n', '<leader>h', '<cmd>lua vim.lsp.buf.hover()<cr>')
 
 -- Treesitter
-vim.keymap.set('n', ',cc', '<cmd>TSContextToggle<cr>')
+vim.keymap.set('n', ',cc', '<cmd>TSContext toggle<cr>')
 
 -- LSP
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename)
 
 -- Copilot
-vim.g.copilot_no_tab_map = true
+--vim.g.copilot_no_tab_map = false
 vim.api.nvim_set_keymap('i', '<C-s>', 'copilot#Accept("")', { expr = true, silent = true })
 
 -- File Type Detection
