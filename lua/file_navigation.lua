@@ -29,6 +29,11 @@ require('fzf-lua').setup({
   },
   oldfiles = {
     include_current_session = true,
+    cwd_only = true,
+    file_ignore_patterns = { "^%.git/" },
+  },
+  grep = {
+    git_icons = true,
   },
 })
 require("bufferline").setup{
