@@ -29,14 +29,15 @@ vim.keymap.set('n', '<leader>o', '<cmd>FzfLua oldfiles<cr>')
 vim.keymap.set('n', '<leader>e', '<cmd>FzfLua grep<cr>')
 vim.keymap.set('n', '<leader>t', '<cmd>FzfLua grep --type ts<cr>')
 vim.keymap.set('n', '<leader>E', '<cmd>FzfLua grep resume=true<cr>')
-vim.keymap.set('n', '<leader>w', '<cmd>FzfLua grep_cword<cr>')
 vim.keymap.set('n', '<leader>b', '<cmd>FzfLua buffers<cr>')
 vim.keymap.set('n', '<leader>j', '<cmd>FzfLua jumps<cr>')
 vim.keymap.set('n', '<leader>gs', '<cmd>FzfLua git_status<cr>')
 vim.keymap.set('n', '<leader>gc', '<cmd>FzfLua git_commits<cr>')
+vim.keymap.set('n', '<leader>gf', '<cmd>FzfLua git_bcommits<cr>')
 vim.keymap.set('n', '<leader>gb', '<cmd>FzfLua git_branches<cr>')
 vim.keymap.set('n', '<leader>d', '<cmd>FzfLua lsp_document_diagnostics<cr>')
 vim.keymap.set('n', '<leader>D', '<cmd>FzfLua lsp_workspace_diagnostics<cr>')
+vim.keymap.set('n', 'gw', '<cmd>FzfLua grep_cword<cr>')
 vim.keymap.set('n', 'gd', '<cmd>FzfLua lsp_definitions<cr>')
 vim.keymap.set('n', 'gt', '<cmd>FzfLua lsp_typedefs<cr>')
 vim.keymap.set('n', 'gr', '<cmd>FzfLua lsp_references<cr>')
@@ -47,19 +48,41 @@ vim.keymap.del('n', 'grt')
 vim.keymap.del('n', 'grn')
 
 vim.keymap.set('n', '<leader>a', '<cmd>lua vim.lsp.buf.code_action()<cr>')
-vim.keymap.set('n', '<leader>i', '<cmd>TSToolsAddMissingImports<cr>')
+vim.keymap.set('n', '<leader>z', '<cmd>TSToolsAddMissingImports<cr>')
 vim.keymap.set('n', '<leader>x', '<cmd>lua vim.diagnostic.open_float()<cr>')
 vim.keymap.set('n', '<leader>h', '<cmd>lua vim.lsp.buf.hover()<cr>')
 
 -- Treesitter
-vim.keymap.set('n', ',cc', '<cmd>TSContext toggle<cr>')
+vim.keymap.set('n', ',ct', '<cmd>TSContext toggle<cr>')
+
+-- Copy @filepath:line for Claude Code context
+vim.keymap.set('n', ',cc', function()
+  local path = vim.fn.expand('%')
+  local line = vim.fn.line('.')
+  local ref = '@' .. path .. ':' .. line
+  vim.fn.setreg('*', ref)
+  vim.notify(ref, vim.log.levels.INFO)
+end, { desc = 'Copy @file:line to clipboard' })
+
+vim.keymap.set('v', ',cc', function()
+  local start_line = vim.fn.line('v')
+  local end_line = vim.fn.line('.')
+  if start_line > end_line then
+    start_line, end_line = end_line, start_line
+  end
+  local path = vim.fn.expand('%')
+  local ref = '@' .. path .. ':' .. start_line .. '-' .. end_line
+  vim.fn.setreg('*', ref)
+  vim.notify(ref, vim.log.levels.INFO)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'n', false)
+end, { desc = 'Copy @file:lines to clipboard' })
 
 -- LSP
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename)
 
 -- Copilot
 --vim.g.copilot_no_tab_map = false
-vim.api.nvim_set_keymap('i', '<C-s>', 'copilot#Accept("")', { expr = true, silent = true })
+-- vim.api.nvim_set_keymap('i', '<C-s>', 'copilot#Accept("")', { expr = true, silent = true })
 
 -- File Type Detection
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {

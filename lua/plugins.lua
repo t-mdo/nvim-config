@@ -83,7 +83,7 @@ require("lazy").setup({
   'hrsh7th/cmp-cmdline',
   'hrsh7th/cmp-nvim-lsp-signature-help',
   'hrsh7th/nvim-cmp',
-  'github/copilot.vim',
+  -- 'github/copilot.vim',
 
   -- Misc
   'lukas-reineke/indent-blankline.nvim',
