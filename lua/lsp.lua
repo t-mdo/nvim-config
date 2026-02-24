@@ -44,11 +44,6 @@ require("conform").setup({
     lsp_fallback = true,
   },
 })
-require("conform").formatters.biome = {
-  command = "biome",
-  args = { "check", "--write", "--stdin-file-path", "$FILENAME" },
-  stdin = true,
-}
 local cmp = require'cmp'
 cmp.setup {
   sources = {
