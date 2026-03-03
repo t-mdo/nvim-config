@@ -56,8 +56,17 @@ vim.keymap.set('n', '<leader>h', '<cmd>lua vim.lsp.buf.hover()<cr>')
 vim.keymap.set('n', ',ct', '<cmd>TSContext toggle<cr>')
 
 -- Copy @filepath:line for Claude Code context
+local function git_relative_path()
+  local abs = vim.fn.expand('%:p')
+  local git_root = vim.fn.systemlist('git -C ' .. vim.fn.shellescape(vim.fn.expand('%:p:h')) .. ' rev-parse --show-toplevel')[1]
+  if vim.v.shell_error == 0 and git_root then
+    return abs:sub(#git_root + 2) -- +2 to skip the trailing /
+  end
+  return vim.fn.expand('%')
+end
+
 vim.keymap.set('n', ',cc', function()
-  local path = vim.fn.expand('%')
+  local path = git_relative_path()
   local line = vim.fn.line('.')
   local ref = '@' .. path .. ':' .. line
   vim.fn.setreg('*', ref)
@@ -70,7 +79,7 @@ vim.keymap.set('v', ',cc', function()
   if start_line > end_line then
     start_line, end_line = end_line, start_line
   end
-  local path = vim.fn.expand('%')
+  local path = git_relative_path()
   local ref = '@' .. path .. ':' .. start_line .. '-' .. end_line
   vim.fn.setreg('*', ref)
   vim.notify(ref, vim.log.levels.INFO)
