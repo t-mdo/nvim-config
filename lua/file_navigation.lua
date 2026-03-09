@@ -35,6 +35,9 @@ require('fzf-lua').setup({
   grep = {
     git_icons = true,
   },
+  lsp = {
+    async_or_timeout = 30000,
+  },
 })
 require("bufferline").setup{
   options = {
