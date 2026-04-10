@@ -94,6 +94,14 @@ require("lazy").setup({
   'hrsh7th/nvim-cmp',
   -- 'github/copilot.vim',
 
+  -- Markdown
+  {
+    'iamcco/markdown-preview.nvim',
+    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+    ft = { 'markdown' },
+    build = 'cd app && yarn install',
+  },
+
   -- Misc
   'lukas-reineke/indent-blankline.nvim',
   'tpope/vim-endwise',

@@ -68,10 +68,10 @@ end
 vim.keymap.set('n', ',cc', function()
   local path = git_relative_path()
   local line = vim.fn.line('.')
-  local ref = '@' .. path .. ':' .. line
+  local ref = '@' .. path .. ' l:' .. line
   vim.fn.setreg('*', ref)
   vim.notify(ref, vim.log.levels.INFO)
-end, { desc = 'Copy @file:line to clipboard' })
+end, { desc = 'Copy @file l:line to clipboard' })
 
 vim.keymap.set('v', ',cc', function()
   local start_line = vim.fn.line('v')
@@ -80,7 +80,7 @@ vim.keymap.set('v', ',cc', function()
     start_line, end_line = end_line, start_line
   end
   local path = git_relative_path()
-  local ref = '@' .. path .. ':' .. start_line .. '-' .. end_line
+  local ref = '@' .. path .. ' l:' .. start_line .. '-' .. end_line
   vim.fn.setreg('*', ref)
   vim.notify(ref, vim.log.levels.INFO)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'n', false)
